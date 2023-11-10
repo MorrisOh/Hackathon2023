@@ -1,9 +1,14 @@
 import cv2 as cv
 import numpy as np 
+import torch
 from ultralytics import YOLO
 
-model = YOLO("yolov8s-seg.pt")
-vid = cv.VideoCapture(0)
+print(torch.backends.mps.is_available())
+
+model = YOLO("yolov8x-seg.pt")
+if torch.backends.mps.is_available():
+    model.to("mps")
+vid = cv.VideoCapture(1)
 
 while(True):
     
