@@ -6,6 +6,7 @@ Team Members:
 - Jonathan M.
 - Nathan H.
 - Morris O.
+- Alessio N.
 
 ## About the Project
 TBD
