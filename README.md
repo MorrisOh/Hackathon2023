@@ -36,7 +36,9 @@ TBD
 4. Run pipeline via:
 
    ```
-   python main.py
+   python main.py --k 12 --conf 0.3
    ```
+where --k is the k-th frame to consider for inference and --conf the confidence threshold for classification
+
 ## Example
 TBD
