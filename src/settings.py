@@ -26,13 +26,13 @@ SOURCES_LIST = [WEBCAM, YOUTUBE, VIDEO]
 VIDEO_DIR = root_path / 'data/raw/'
 
 # Define video paths dynamically based on the script's location
-VIDEO_1_PATH = root_path / 'data/raw/test_video.mov'
-VIDEO_2_PATH = root_path / 'data/raw/video_2.mp4'
-VIDEO_3_PATH = root_path / 'data/raw/video_3.mp4'
+VIDEO_1_PATH = 'data/raw/test_video.mov'
+VIDEO_2_PATH = 'data/raw/GX010650.MP4'
+VIDEO_3_PATH = 'data/raw/video_3.mp4'
 
 VIDEOS_DICT = {
     'test_video': VIDEO_1_PATH,
-    'video_2': VIDEO_2_PATH,
+    'Fruehstuck': VIDEO_2_PATH,
     'video_3': VIDEO_3_PATH,
 }
 

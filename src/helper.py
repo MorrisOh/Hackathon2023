@@ -5,7 +5,7 @@ from pytube import YouTube
 import settings
 import imageio
 def display_tracker_options():
-    display_tracker = st.radio("Display Tracker", ('Yes', 'No'))
+    display_tracker = st.radio("Display Tracker", ('No', 'Yes'))
     is_display_tracker = True if display_tracker == 'Yes' else False
     if is_display_tracker:
         tracker_type = st.radio("Tracker", ("bytetrack.yaml", "botsort.yaml"))
@@ -34,7 +34,7 @@ def _display_detected_frames(conf, model, st_frame, image, is_display_tracking=N
         res = model.track(image, conf=conf, persist=True, tracker=tracker)
     else:
         # Predict the objects in the image using the YOLOv8 model
-        res = model.predict(image, conf=conf)
+        res = model.predict(image, conf=conf, classes=[0], retina_masks=True)
 
     # # Plot the detected objects on the video frame
     res_plotted = res[0].plot()
