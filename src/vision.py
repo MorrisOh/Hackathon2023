@@ -98,6 +98,7 @@ class Vision:
         """ Adds multiple collected frames together by adding ellipse at the center positions and post-processes it
         :return: heatmap: np.array -- Postprocessed Heatmap
         """
+        self.logger.info(f"Overlaying {self.frame_count} frames and its {len(self.centers)} bounding boxes ...")
         densities = np.zeros((self.image.shape[0], self.image.shape[1]), dtype=np.float32)
         for center in tqdm(self.centers):
             size = (30, 30)
@@ -120,6 +121,7 @@ class Vision:
         :param densities: np.array -- Input densities / heatmap
         :return: heatmap: np.array -- Processed heatmap
         """
+        self.logger.info("Post processing heatmap ...")
         # Postprocess densities / heatmap
         densities = cv2.GaussianBlur(densities, (21, 21), 0)
         densities = cv2.normalize(densities, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
@@ -129,18 +131,27 @@ class Vision:
 
         return heatmap
 
-    def plot_densities(self) -> None:
+    def plot_densities(self, savefig: bool = True, showfig: bool = False) -> None:
         """ Plots the densities / heatmap as a two axis plot
         First axis shows the heatmap overlayed on the first input image;
         Second axis show the heatmap only.
 
+        :param savefig: bool -- Whether to save figure in assets or not
+        :param showfig: bool -- Whether to show figure after pipeline run or not
         :return: None
         """
-        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
+        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(15, 5))
+        fig.suptitle(f"Heatmap Analysis of Input Video"
+                     f" $(n_{{frames}} = {self.frame_count}, {{conf}} = {self.confidence_threshold})$",
+                     size=18, fontweight="bold")
         axes[0].imshow(self.image)
-        axes[0].set_title(f"Heatmap Overlay (N_Frames = {self.frame_count})", size=16, fontweight="bold")
+        axes[0].set_title(f"Heatmap Overlay (N_Frames = {self.frame_count})", size=16)
         axes[1].imshow(self.heatmap)
-        axes[1].set_title(f"Heatmap (N_Frames = {self.frame_count})", size=16, fontweight="bold")
+        axes[1].set_title(f"Heatmap (N_Frames = {self.frame_count})", size=16)
         fig.tight_layout()
-        # plt.savefig("../assets/heatmap.png", dpi=126, bbox_inches='tight')
-        plt.show()
+        if savefig:
+            _PATH_TO_SAVE_FIG = "assets/heatmap.png"
+            plt.savefig(_PATH_TO_SAVE_FIG, dpi=126, bbox_inches='tight')
+            self.logger.info(f"Saved figure in '{_PATH_TO_SAVE_FIG}' ...")
+        if showfig:
+            plt.show()
