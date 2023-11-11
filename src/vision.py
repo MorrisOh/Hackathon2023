@@ -19,6 +19,7 @@ class Vision:
         self.image = None
         self.frame_count = None
         self.heatmap = None
+        self.heatmap_overlayed = None
 
         if torch.backends.mps.is_available():
             self.model.to('mps')
@@ -110,10 +111,11 @@ class Vision:
             densities = densities + density
 
         # Postprocess densities / heatmap
-        heatmap = self.postprocess_heatmap(densities)
+        heatmap_overlayed, heatmap = self.postprocess_heatmap(densities)
+        self.heatmap_overlayed = heatmap_overlayed
         self.heatmap = heatmap
 
-        return heatmap
+        return heatmap_overlayed, heatmap
 
     def postprocess_heatmap(self, densities: np.array) -> np.array:
         """ Performs multiple post-processing on the given densities / heatmap
@@ -127,9 +129,9 @@ class Vision:
         densities = cv2.normalize(densities, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
         heatmap = cv2.applyColorMap(densities, cv2.COLORMAP_TURBO)
         heatmap = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB)
-        heatmap = cv2.addWeighted(self.image, 0.5, heatmap, 1, 0)
+        heatmap_overlayed = cv2.addWeighted(self.image, 0.5, heatmap, 1, 0)
 
-        return heatmap
+        return heatmap_overlayed, heatmap
 
     def plot_densities(self, savefig: bool = True, showfig: bool = False) -> None:
         """ Plots the densities / heatmap as a two axis plot
@@ -142,12 +144,12 @@ class Vision:
         """
         fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(15, 5))
         fig.suptitle(f"Heatmap Analysis of Input Video"
-                     f" $(n_{{frames}} = {self.frame_count}, {{conf}} = {self.confidence_threshold})$",
+                     f" $(n_{{frames}} = {self.frame_count}, \Theta_{{conf}} = {self.confidence_threshold})$",
                      size=18, fontweight="bold")
-        axes[0].imshow(self.image)
-        axes[0].set_title(f"Heatmap Overlay (N_Frames = {self.frame_count})", size=16)
+        axes[0].imshow(self.heatmap_overlayed)
+        axes[0].set_title(f"Heatmap Overlay", size=16)
         axes[1].imshow(self.heatmap)
-        axes[1].set_title(f"Heatmap (N_Frames = {self.frame_count})", size=16)
+        axes[1].set_title(f"Heatmap Only", size=16)
         fig.tight_layout()
         if savefig:
             _PATH_TO_SAVE_FIG = "assets/heatmap.png"
