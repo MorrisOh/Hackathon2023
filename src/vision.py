@@ -34,6 +34,7 @@ class Vision:
             frame_count: int -- Number of frames collected
         """
         centers: list = []  # Bounding Boxes Centers (Shoe centric)
+        sizes: list = [] # Dynamic size parameter depenending on BBox
         image = None
         counter: int = 0  # Help variable to get every k frame
         frame_count: int = 0  # Counter variable to check how many frames were taken
@@ -68,7 +69,9 @@ class Vision:
                         box = box
                     b = box.xyxy[0]  # Get box coordinates in (top, left, bottom, right) format
                     x0, y0, x1, y1 = b
-                    x, y, w, h = x0, y0, x1 - x0, y1 - y0      # Get origin of BB and width and height
+                    x, y, w, h = x0, y0, x1 - x0, y1 - y0     # Get origin of BB and width and height
+                    sizes.append((np.abs(int(w * 0.15)), np.abs(int(h * 0.15)))) # Get size relative to BBox
+
                     center: tuple = (int(x + w / 2), int(y1))  # Get shoe position (center)
                     centers.append(center)
 
@@ -79,11 +82,11 @@ class Vision:
         cv2.destroyAllWindows()
         end_time = time.time()
 
-        self.set_frames_attributes(centers, image, frame_count)
+        self.set_frames_attributes(centers, image, sizes, frame_count)
         self.logger.info(f"Collected {frame_count} frames in {int(end_time - start_time)} seconds ...")
         return centers, image, frame_count
 
-    def set_frames_attributes(self, centers, image, frame_count) -> None:
+    def set_frames_attributes(self, centers, image, sizes, frame_count) -> None:
         """ Sets collected data as instance attributes
 
         :param centers: list -- Collected centers
@@ -92,6 +95,7 @@ class Vision:
         :return: None
         """
         self.centers = centers
+        self.sizes = sizes
         self.image = image
         self.frame_count = frame_count
         # Log information
@@ -103,13 +107,13 @@ class Vision:
         """
         self.logger.info(f"Overlaying {self.frame_count} frames and its {len(self.centers)} bounding boxes ...")
         densities = np.zeros((self.image.shape[0], self.image.shape[1]), dtype=np.float32)
-        for center in tqdm(self.centers):
-            size = (30, 30)
+        for center, size in tqdm(zip(self.centers, self.sizes)):
             angle = 0
             startAngle = 0
             endAngle = 360
             density = np.zeros((self.image.shape[0], self.image.shape[1]), dtype=np.float32)
-            cv2.ellipse(density, center, size, angle, startAngle, endAngle, (1, 1), -1)
+            cv2.ellipse(density, center, size, angle, startAngle, endAngle, color=(1, 1), thickness=-1)
+            #density = cv2.GaussianBlur(density, (21, 21), 0)
             densities = densities + density
 
         # Postprocess densities / heatmap
