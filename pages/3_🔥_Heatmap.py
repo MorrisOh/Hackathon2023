@@ -12,10 +12,6 @@ df = pd.read_csv(csv_file_path, sep=';')
 # Find unique Values
 unique_cities = df['city'].unique()
 
-# Find the lowest and highest dates
-#lowest_date = datetime.strptime(df['date_time'].min(), '%d.%m.%y %H:%M')
-#highest_date = datetime.strptime(df['date_time'].max(), '%d.%m.%y %H:%M')
-
 # Convert 'datetime_column' to a datetime object
 df['date_time'] = pd.to_datetime(df['date_time'], format='%d.%m.%y %H:%M')
 
@@ -32,14 +28,12 @@ option = st.sidebar.multiselect(
    "Which City do you want to select?",
    options = unique_cities,
 )
-print(option)
 map_df = df
 # Check if option is not NULL or empty:
 if not option:
     map_df = df
 else:
     map_df = df[df['city'].isin(option)]
-    # cams = // get all Cams from City
     unique_location = map_df['location'].unique()
     model_type = st.sidebar.multiselect(
         "Select Location", unique_location)
@@ -70,7 +64,9 @@ selected_min_date, selected_max_date = st.slider(
 filtered_df = map_df[
     (map_df['date_column'] >= selected_min_date) & (map_df['date_column'] <= selected_max_date)
 ]
-
+filtered_df = filtered_df[
+    (filtered_df['time_column'] >= clock_range[0]) & (filtered_df['time_column'] <= clock_range[1])
+]
 
 tab1, tab2 = st.tabs(["📈 Global", "🗃 Local"])
 with tab1:
