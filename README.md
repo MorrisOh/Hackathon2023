@@ -38,7 +38,9 @@ TBD
    ```
    python main.py --k 12 --conf 0.3
    ```
-where --k is the k-th frame to consider for inference and --conf the confidence threshold for classification
+where --k is the k-th frame to consider for inference and --conf the confidence threshold for classification.  
+To lower the amount of computation power, consider a high k, e.g. k=24.
+
 
 ## Example
-TBD
+![Example](assets/heatmap_example.png)
