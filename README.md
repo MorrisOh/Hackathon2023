@@ -36,9 +36,13 @@ TBD
 4. Run pipeline via:
 
    ```
-   python main.py --k 12 --conf 0.3
+   python main.py --path "data/raw/test_video.mov" --k 12 --conf 0.3
    ```
-where --k is the k-th frame to consider for inference and --conf the confidence threshold for classification.  
+where ...
+- --path is the path to the input video to test / create heatmap
+- --k is the k-th frame to consider for inference and 
+- --conf the confidence threshold for classification.  
+
 To lower the amount of computation power, consider a high k, e.g. k=24.
 
 

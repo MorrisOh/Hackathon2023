@@ -36,12 +36,17 @@ def parse_args() -> dict:
     """
     # Parse arguments
     parser = argparse.ArgumentParser()
-    # Argument 1: Every k frame to consider
+    # Argument 1: Input video path
+    parser.add_argument("--path",
+                        default="data/raw/test_video.mov",
+                        type=str,
+                        help="str -- Path to the test video (relative to root dir)")
+    # Argument 2: Every k frame to consider
     parser.add_argument("--k",
                         default=20,
                         type=int,
                         help="int -- Every k-th you want to consider during inference")
-    # Argument 2: Confidence Threshold
+    # Argument 3: Confidence Threshold
     parser.add_argument("--conf",
                         default=0.3,
                         type=float,

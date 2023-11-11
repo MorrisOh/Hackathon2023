@@ -12,7 +12,7 @@ def main():
 
     # Create Vision object with YOLO model located in root
     vision = Vision(model=utils.get_model(),
-                    path_to_video="data/raw/test_video.mov",
+                    path_to_video=args["path"],
                     confidence_threshold=args["conf"],
                     logger=logger)
 
