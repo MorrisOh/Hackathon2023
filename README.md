@@ -8,10 +8,10 @@ Team Members:
 - Morris O.
 - Alessio N.
 
-# About the Project
+# About the Project 
 TBD
 
-# Set up Environment
+# Set up Environment 👨🏽‍
 **Python Version**: 3.11.0
 
 1. Clone the repository by running the following command in your terminal:
@@ -46,5 +46,5 @@ where ...
 To lower the amount of computation power, consider a high k, e.g. k=24.
 
 
-# Example
-![Example](assets/heatmap_example.png)
+# Examples 
+![Example](assets/readme/heatmap_example2.png)
