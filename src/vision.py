@@ -39,7 +39,7 @@ class Vision:
         frame_count: int = 0  # Counter variable to check how many frames were taken
         start_time = time.time()
 
-        self.logger.info(f"Collecting and extracting bounding boxes "
+        self.logger.info(f"Collecting and extracting bounding boxes (conf = {self.confidence_threshold})"
                          f"every {take_every_k_frame} frames (this may take a while) ...")
         # Capture Video
         cap = cv2.VideoCapture(self.path_to_video)
@@ -80,7 +80,7 @@ class Vision:
         end_time = time.time()
 
         self.set_frames_attributes(centers, image, frame_count)
-        self.logger.info(f"Collected {frame_count} frames in {(end_time - start_time):.2f} seconds ...")
+        self.logger.info(f"Collected {frame_count} frames in {int(end_time - start_time)} seconds ...")
         return centers, image, frame_count
 
     def set_frames_attributes(self, centers, image, frame_count) -> None:
