@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import datetime
 
+
+
 # Sidebar
 st.sidebar.header("Detail Location View")
 option = st.sidebar.selectbox(
@@ -17,6 +19,17 @@ if option is not None:
     # cams = // get all Cams from City
     model_type = st.sidebar.radio(
         "Select Location", ['FFK Club', 'Heilbronn Shower'])
+
+MIN_MAX_RANGE = (datetime.datetime(2022,1,1), datetime.datetime(2023,7,1))
+PRE_SELECTED_DATES = (datetime.datetime(2023,1,1), datetime.datetime(2023,7,1))
+
+selected_min, selected_ax = st.slider(
+    "Select your preferred Date Range",
+    value=PRE_SELECTED_DATES,
+    min_value=MIN_MAX_RANGE[0],
+    max_value=MIN_MAX_RANGE[1],
+)
+
 
 # KPI-Header
 # Define Column Count
@@ -37,13 +50,4 @@ style_metric_cards()
 chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 st.bar_chart(chart_data)
 
-MIN_MAX_RANGE = (datetime.datetime(2022,1,1), datetime.datetime(2023,7,1))
-PRE_SELECTED_DATES = (datetime.datetime(2023,1,1), datetime.datetime(2023,7,1))
-
-selected_min, selected_ax = st.slider(
-    "Datetime slider",
-    value=PRE_SELECTED_DATES,
-    min_value=MIN_MAX_RANGE[0],
-    max_value=MIN_MAX_RANGE[1],
-)
 
