@@ -8,10 +8,10 @@ Team Members:
 - Morris O.
 - Alessio N.
 
-## About the Project
+# About the Project
 TBD
 
-## Set up Environment
+# Set up Environment
 **Python Version**: 3.11.0
 
 1. Clone the repository by running the following command in your terminal:
@@ -39,12 +39,12 @@ TBD
    python main.py --path "data/raw/test_video.mov" --k 12 --conf 0.3
    ```
 where ...
-- --path is the path to the input video to test / create heatmap
-- --k is the k-th frame to consider for inference and 
-- --conf the confidence threshold for classification.  
+- `--path` is the path to the input video to test / create the heatmap.
+- `--k` is the k-th frame to consider for inference, e.g. every 10 frame.
+- `--conf` is the confidence threshold for classification.  
 
 To lower the amount of computation power, consider a high k, e.g. k=24.
 
 
-## Example
+# Example
 ![Example](assets/heatmap_example.png)
