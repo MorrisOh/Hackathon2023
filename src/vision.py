@@ -39,6 +39,8 @@ class Vision:
         frame_count: int = 0  # Counter variable to check how many frames were taken
         start_time = time.time()
 
+        self.logger.info(f"Collecting and extracting bounding boxes "
+                         f"every {take_every_k_frame} frames (this may take a while) ...")
         # Capture Video
         cap = cv2.VideoCapture(self.path_to_video)
         while cap.isOpened():
@@ -126,6 +128,8 @@ class Vision:
         self.logger.info("Post processing heatmap ...")
         # Postprocess densities / heatmap
         densities = cv2.GaussianBlur(densities, (21, 21), 0)
+        densities = densities + np.ones(densities.shape)
+        densities = np.log(densities**4)
         densities = cv2.normalize(densities, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
         heatmap = cv2.applyColorMap(densities, cv2.COLORMAP_TURBO)
         heatmap = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB)
