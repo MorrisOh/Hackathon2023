@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import torch
 
 from tqdm import tqdm
 
@@ -18,6 +19,9 @@ class Vision:
         self.image = None
         self.frame_count = None
         self.heatmap = None
+
+        if torch.backends.mps.is_available():
+            self.model.to('mps')
 
     def get_frames(self, take_every_k_frame: int = 24) -> tuple[list, np.array, int]:
         """ Applies the YOLO model on every k-th frame and returns, among others, the BB centers
@@ -55,6 +59,10 @@ class Vision:
             for r in results:
                 boxes = r.boxes
                 for box in boxes:
+                    if torch.backends.mps.is_available():
+                        box = box.cpu()
+                    else:
+                        box = box
                     b = box.xyxy[0]  # Get box coordinates in (top, left, bottom, right) format
                     x0, y0, x1, y1 = b
                     x, y, w, h = x0, y0, x1 - x0, y1 - y0      # Get origin of BB and width and height
