@@ -11,7 +11,7 @@ Team Members:
 # About the Project 
 TBD
 
-# Set up Environment 👨🏽‍
+# Set up Environment 
 **Python Version**: 3.11.0
 
 1. Clone the repository by running the following command in your terminal:
