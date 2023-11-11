@@ -17,10 +17,25 @@ ROOT = root_path.relative_to(Path.cwd())
 
 # Sources
 WEBCAM = 'Webcam'
-RTSP = 'RTSP'
 YOUTUBE = 'YouTube'
+VIDEO = 'Video'
 
-SOURCES_LIST = [WEBCAM, RTSP, YOUTUBE]
+SOURCES_LIST = [WEBCAM, YOUTUBE, VIDEO]
+
+# Videos config
+VIDEO_DIR = root_path / 'data/raw/'
+
+# Define video paths dynamically based on the script's location
+VIDEO_1_PATH = root_path / 'data/raw/test_video.mov'
+VIDEO_2_PATH = root_path / 'data/raw/video_2.mp4'
+VIDEO_3_PATH = root_path / 'data/raw/video_3.mp4'
+
+VIDEOS_DICT = {
+    'test_video': VIDEO_1_PATH,
+    'video_2': VIDEO_2_PATH,
+    'video_3': VIDEO_3_PATH,
+}
+
 
 # ML Model config
 DETECTION_MODEL = YOLO('yolov8s.pt')

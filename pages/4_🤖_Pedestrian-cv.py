@@ -41,13 +41,13 @@ source_radio = st.sidebar.radio(
     "Select Source", settings.SOURCES_LIST)
 
 if source_radio == settings.WEBCAM:
-    helper.play_webcam(confidence, model)
-
-elif source_radio == settings.RTSP:
-    helper.play_rtsp_stream(confidence, model)
+    helper.webcam(confidence, model)
 
 elif source_radio == settings.YOUTUBE:
-    helper.play_youtube_video(confidence, model)
+    helper.youtube_video(confidence, model)
+
+elif source_radio == settings.VIDEO:
+    helper.video_file(confidence, model)
 
 else:
     st.error("Please select a valid source type!")
