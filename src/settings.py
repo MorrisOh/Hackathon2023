@@ -27,4 +27,4 @@ DETECTION_MODEL = YOLO('yolov8s.pt')
 SEGMENTATION_MODEL = YOLO('yolov8n-seg.pt')
 
 # Webcam
-WEBCAM_PATH = 1
+WEBCAM_PATH = 0

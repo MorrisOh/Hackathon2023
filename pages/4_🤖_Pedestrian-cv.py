@@ -32,8 +32,8 @@ if model_type == 'Detection':
 elif model_type == 'Segmentation':
     model = YOLO('yolov8x-seg.pt')
 
-if torch.backends.mps.is_available():
-    model.to("mps")
+#if torch.backends.mps.is_available():
+#    model.to("mps")
 
 
 st.sidebar.header("Config")
