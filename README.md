@@ -9,7 +9,7 @@ Team Members:
 - Alessio N.
 
 # About the Project 
-TBD
+![diagram](assets/readme/diagram.png)
 
 # Set up Environment 
 **Python Version**: 3.11.0
