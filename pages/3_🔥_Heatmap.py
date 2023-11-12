@@ -4,9 +4,11 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 from datetime import time
+
+import src.settings as settings
 # Data
 # Read .csv with pandas
-csv_file_path = 'data/raw/results_distribution.csv'
+csv_file_path = settings.PEDESTRIAN_DISTRIBUTION
 # Read the CSV file into a DataFrame
 df = pd.read_csv(csv_file_path, sep=';')
 # Find unique Values

@@ -43,3 +43,6 @@ SEGMENTATION_MODEL = YOLO('yolov8n-seg.pt')
 
 # Webcam
 WEBCAM_PATH = 0
+
+# pedestrian data
+PEDESTRIAN_DISTRIBUTION = 'data/raw/results_distribution.csv'
