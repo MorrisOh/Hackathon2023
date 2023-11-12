@@ -62,8 +62,8 @@ selected_min_date, selected_max_date = st.slider(
     max_value=MIN_MAX_RANGE[1],
 )
 
-filtered_df = df[
-    (df['date_column'] >= selected_min_date) & (df['date_column'] <= selected_max_date)
+filtered_df = map_df[
+    (map_df['date_column'] >= selected_min_date) & (map_df['date_column'] <= selected_max_date)
 ]
 
 # KPI-Header
