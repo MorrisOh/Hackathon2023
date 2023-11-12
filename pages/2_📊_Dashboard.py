@@ -30,13 +30,10 @@ highest_date = df['date_column'].max()
 
 # Sidebar
 st.sidebar.header("Detail Location View")
-option = st.sidebar.selectbox(
+option = st.sidebar.multiselect(
    "Which City do you want to select?",
-   ("Heilbronn", "Hoelle", "Wakanda"),
-   index=None,
-   placeholder="Please select City....",
+   options = unique_cities,
 )
-# Check if option is not NULL or empty:
 map_df = df
 # Check if option is not NULL or empty:
 if not option:
@@ -65,8 +62,11 @@ selected_min_date, selected_max_date = st.slider(
     max_value=MIN_MAX_RANGE[1],
 )
 
-filtered_df = df[
-    (df['date_column'] >= selected_min_date) & (df['date_column'] <= selected_max_date)
+filtered_df = map_df[
+    (map_df['date_column'] >= selected_min_date) & (map_df['date_column'] <= selected_max_date)
+]
+filtered_df = filtered_df[
+    (filtered_df['time_column'] >= clock_range[0]) & (filtered_df['time_column'] <= clock_range[1])
 ]
 
 # KPI-Header
@@ -76,15 +76,18 @@ col1, col2, col3 = st.columns(3)
 # Define Column Content
 
 # Define Column Content Display
-col1.metric(label="Durchschnitt - 1 Tag", value=5000, delta=1000)
-col2.metric(label="Durchschnitt - 12 h", value=5000, delta=-1000)
-col3.metric(label="Durchschnitt - ALL", value=5000, delta=0)
+col1.metric(label="Total - People", value=filtered_df['total_count'].sum())
+col2.metric(label="Mean Value", value=int(filtered_df['total_count'].mean()))
+col3.metric(label="Max People (One Location at once)", value=filtered_df['total_count'].max())
+
 
 # Render Metric Cards
 style_metric_cards()
 
 # Bar Chart
-chart_data = df
-st.bar_chart(data=chart_data, x='date_column',y='total_count')
+chart_data = filtered_df
+st.bar_chart(data=chart_data, x='date_time',y='total_count')
+
+
 
 

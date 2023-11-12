@@ -4,6 +4,7 @@ import streamlit as st
 import src.settings as settings
 import src.helper as helper
 from ultralytics import YOLO
+import torch
 
 # Setting page layout
 st.set_page_config(
@@ -32,8 +33,8 @@ if model_type == 'Detection':
 elif model_type == 'Segmentation':
     model = YOLO('yolov8x-seg.pt')
 
-#if torch.backends.mps.is_available():
-#    model.to("mps")
+if torch.backends.mps.is_available():
+    model.to("mps")
 
 
 st.sidebar.header("Config")
