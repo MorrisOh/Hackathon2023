@@ -65,6 +65,9 @@ selected_min_date, selected_max_date = st.slider(
 filtered_df = map_df[
     (map_df['date_column'] >= selected_min_date) & (map_df['date_column'] <= selected_max_date)
 ]
+filtered_df = filtered_df[
+    (filtered_df['time_column'] >= clock_range[0]) & (filtered_df['time_column'] <= clock_range[1])
+]
 
 # KPI-Header
 # Define Column Count
@@ -73,9 +76,10 @@ col1, col2, col3 = st.columns(3)
 # Define Column Content
 
 # Define Column Content Display
-col1.metric(label="Durchschnitt - 1 Tag", value=5000, delta=1000)
-col2.metric(label="Durchschnitt - 12 h", value=5000, delta=-1000)
-col3.metric(label="Durchschnitt - ALL", value=5000, delta=0)
+col1.metric(label="Total - People", value=filtered_df['total_count'].sum())
+col2.metric(label="Mean Value", value=filtered_df['total_count'].mean())
+col3.metric(label="Max People (One Location at once)", value=filtered_df['total_count'].max())
+
 
 # Render Metric Cards
 style_metric_cards()
