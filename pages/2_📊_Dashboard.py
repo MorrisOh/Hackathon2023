@@ -30,13 +30,10 @@ highest_date = df['date_column'].max()
 
 # Sidebar
 st.sidebar.header("Detail Location View")
-option = st.sidebar.selectbox(
+option = st.sidebar.multiselect(
    "Which City do you want to select?",
-   ("Heilbronn", "Hoelle", "Wakanda"),
-   index=None,
-   placeholder="Please select City....",
+   options = unique_cities,
 )
-# Check if option is not NULL or empty:
 map_df = df
 # Check if option is not NULL or empty:
 if not option:
@@ -84,7 +81,9 @@ col3.metric(label="Durchschnitt - ALL", value=5000, delta=0)
 style_metric_cards()
 
 # Bar Chart
-chart_data = df
-st.bar_chart(data=chart_data, x='date_column',y='total_count')
+chart_data = filtered_df
+st.bar_chart(data=chart_data, x='date_time',y='total_count')
+
+
 
 
