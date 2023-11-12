@@ -177,3 +177,7 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python
 *.MP4
 *.mov
+*.xml
+*.xml
+*.xml
+.idea/csv-editor.xml

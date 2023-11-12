@@ -20,6 +20,6 @@ st.divider()
 
 #Body
 st.image(
-    "assets/artwork.png",
+    "assets/artwork.webp",
 )
 
