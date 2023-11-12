@@ -43,12 +43,12 @@ def parse_args() -> dict:
                         help="str -- Path to the test video (relative to root dir)")
     # Argument 2: Every k frame to consider
     parser.add_argument("--k",
-                        default=20,
+                        default=10,
                         type=int,
                         help="int -- Every k-th you want to consider during inference")
     # Argument 3: Confidence Threshold
     parser.add_argument("--conf",
-                        default=0.3,
+                        default=0.2,
                         type=float,
                         help="float -- Confidence threshold to consider for classification")
     # places the extracted data in an argparse.Namespace object:
