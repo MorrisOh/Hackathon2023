@@ -15,7 +15,6 @@ with st.sidebar:
 
 #Header
 st.title('Welcome to DenCity')
-st.subheader('*smart city, smart people, smart surveillance*')
 st.divider()
 
 #Body
