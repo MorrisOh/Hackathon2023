@@ -77,7 +77,7 @@ col1, col2, col3 = st.columns(3)
 
 # Define Column Content Display
 col1.metric(label="Total - People", value=filtered_df['total_count'].sum())
-col2.metric(label="Mean Value", value=filtered_df['total_count'].mean())
+col2.metric(label="Mean Value", value=int(filtered_df['total_count'].mean()))
 col3.metric(label="Max People (One Location at once)", value=filtered_df['total_count'].max())
 
 
